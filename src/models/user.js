@@ -1,24 +1,53 @@
+const validator=require('validator');
 const mongoose=require('mongoose');
 
 const userSchema=new mongoose.Schema({
     firstName:{
-        type:String
+        type:String,
+        required:true,
+        minLength:4,
+        maxLength:30
     },
     lastName:{
-      type:String
+      type:String,
+      minLength:4,
+      maxLength:30
+
     },
     emailId:{
-       type:String
+       type:String,
+        required:true,
+        unique:true,
+        lowercase:true,
+        trim:true,
+        validate(value){
+            if(!validator.isEmail(value))
+            {
+              throw new Error("invalid emailid"+value)
+            }
+        }
     },
     password:{
-        type:String
+        type:String,
+        required:true,
+        minLength:4,
+        maxLength:130,
+        validate(value){
+            if(!validator.isStrongPassword(value))
+            {
+                throw new Error("your password is not strong enough"+value)
+            }
+        }
     },
     age:{
-        type:Number
+        type:Number,
+        min:18
     },
     gender:{
         type:String
     }
+},{
+    timestamps:true
 })
 
 
