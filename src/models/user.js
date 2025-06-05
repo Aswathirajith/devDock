@@ -45,6 +45,23 @@ const userSchema=new mongoose.Schema({
     },
     gender:{
         type:String
+    },
+    about:{
+        type:String,
+        default:"this is a default about"
+
+    },
+    photoUrl: {
+      type: String,
+      default: "https://geographyandyou.com/images/user-profile.png",
+      validate(value) {
+        if (!validator.isURL(value)) {
+          throw new Error("Invalid Photo URL: " + value);
+        }
+      },
+    },
+    skills: {
+      type: [String],
     }
 },{
     timestamps:true
