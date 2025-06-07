@@ -5,7 +5,7 @@ const cookirParser=require('cookie-parser');
 const authRouter=require('../src/routes/auth');
 const profileRouter=require('../src/routes/profile')
 const userRouter=require('../src/routes/user')
-
+const requestRouter=require('../src/routes/request')
 
 
 app.use(express.json());
@@ -14,6 +14,7 @@ app.use(cookirParser())
 app.use('/',authRouter);
 app.use('/',profileRouter);
 app.use('/',userRouter);
+app.use('/',requestRouter);
 
 
 connectDB().then(()=>{
